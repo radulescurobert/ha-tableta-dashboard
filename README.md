@@ -1,4 +1,4 @@
-# Tableta — dashboard pentru tabletă (Fully Kiosk) · export curățat
+# Tableta — dashboard pentru tabletă (Fully Kiosk)
 
 Dashboard cu carduri custom `tb-*` (Acasă, Fotovoltaic, Căldură, Senzori, Prize, Aspiratoare, Aer, Alarmă, Camere, Rețea, Muzică, F1).
 Toate entitățile sunt înlocuite cu `YOUR_*`. Trebuie să le pui pe ale tale.
@@ -30,5 +30,4 @@ Fiecare card are sus un comentariu și o funcție `static defaults()` cu valoril
 
 ## Note
 - Textele sunt în română; le poți schimba direct în JS.
-- Cardurile personale au fost scoase.
 - `tb-core.js` e baza comună și `tb-mi.js` adaugă more-info la apăsare lungă; nu le modifica dacă nu ești sigur.
