@@ -1,0 +1,488 @@
+# Tablet dashboard — sanitized export. Create a new dashboard (Settings → Dashboards), open Raw configuration editor, paste this.
+# Resource needed: /local/tableta/tableta-cards.js?v=39 (type: JavaScript module). HACS: kiosk-mode, card-mod; F1 view needs the f1_sensor integration + its cards (remove the F1 view if unused).
+# Replace every YOUR_* entity. Cards not listed with options (acasa, pv, heat, vacuum, air, alarm, net, music) read their entities from defaults() inside www/tableta/tb-*.js.
+title: Tablet dashboard
+kiosk_mode:
+  hide_sidebar: true
+  hide_header: false
+views:
+- title: Acasă
+  path: acasa
+  icon: mdi:weather-partly-cloudy
+  type: panel
+  cards:
+  - type: custom:tb-acasa-card
+- title: Fotovoltaic
+  path: fotovoltaic
+  icon: mdi:solar-power-variant
+  type: panel
+  cards:
+  - type: custom:tb-pv-card
+- title: Căldură
+  path: incalzire
+  icon: mdi:radiator
+  type: panel
+  cards:
+  - type: custom:tb-heat-card
+- title: Senzori
+  path: senzori
+  icon: mdi:access-point-network
+  type: panel
+  cards:
+  - type: custom:tb-sensors-card
+    battery_exclude:
+    - _soh
+    climate:
+    - - Room 1
+      - sensor.YOUR_ROOM_1_TEMPERATURE
+      - sensor.YOUR_ROOM_1_HUMIDITY
+      - sensor.YOUR_ROOM_1_BATTERY
+      - mdi:sofa-outline
+    - - Room 2
+      - sensor.YOUR_ROOM_2_TEMPERATURE
+      - sensor.YOUR_ROOM_2_HUMIDITY
+      - null
+      - mdi:bed-king-outline
+    - - Outside
+      - sensor.YOUR_OUTDOOR_TEMPERATURE
+      - sensor.YOUR_OUTDOOR_HUMIDITY
+      - sensor.YOUR_OUTDOOR_BATTERY
+      - mdi:tree-outline
+- title: Prize & lumini
+  path: prize
+  icon: mdi:power-socket-eu
+  type: panel
+  cards:
+  - type: custom:tb-power-card
+    plugs:
+    - name: Plug 1
+      icon: mdi:power-socket-eu
+      p: sensor.YOUR_PLUG_1_POWER
+      e: sensor.YOUR_PLUG_1_ENERGY
+      v: sensor.YOUR_PLUG_1_VOLTAGE
+      a: sensor.YOUR_PLUG_1_CURRENT
+      note: optional note
+    - name: Plug 2 (with switch)
+      icon: mdi:pump
+      p: sensor.YOUR_PLUG_2_POWER
+      e: sensor.YOUR_PLUG_2_ENERGY
+      eLabel: today
+      sw: switch.YOUR_PLUG_2_SWITCH
+      spin: true
+    - name: Plug 3
+      icon: mdi:fan
+      p: sensor.YOUR_PLUG_3_POWER
+      sw: switch.YOUR_PLUG_3_SWITCH
+      spin: true
+- title: Aspiratoare
+  path: aspiratoare
+  icon: mdi:robot-vacuum
+  type: panel
+  cards:
+  - type: custom:tb-vacuum-card
+- title: Aer
+  path: aer
+  icon: mdi:air-purifier
+  type: panel
+  cards:
+  - type: custom:tb-air-card
+- title: Alarmă
+  path: alarma
+  icon: mdi:shield-home
+  type: panel
+  cards:
+  - type: custom:tb-alarm-card
+- title: Camere
+  path: camere
+  icon: mdi:cctv
+  type: panel
+  cards:
+  - type: vertical-stack
+    cards:
+    - type: heading
+      heading: Camere de supraveghere
+      heading_style: title
+      icon: mdi:cctv
+    - type: grid
+      columns: 4
+      square: false
+      cards:
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_1
+        name: Camera 1
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_1
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_2
+        name: Camera 2
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_2
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_3
+        name: Camera 3
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_3
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_4
+        name: Camera 4
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_4
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_5
+        name: Camera 5
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_5
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_6
+        name: Camera 6
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_6
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_7
+        name: Camera 7
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_7
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_8
+        name: Camera 8
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_8
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+      - type: picture-entity
+        entity: camera.YOUR_CAMERA_9
+        name: Camera 9
+        aspect_ratio: 16x9
+        camera_view: auto
+        show_name: true
+        show_state: false
+        tap_action:
+          action: more-info
+          entity: camera.YOUR_CAMERA_9
+        card_mod:
+          style: "ha-card {\n  border-radius: 20px;\n  overflow: hidden;\n  border: 1px solid rgba(255,255,255,0.10);\n  box-shadow: 0 6px 20px rgba(0,0,0,0.45);\n  transition: transform .2s ease, box-shadow\
+            \ .2s ease;\n}\nha-card:active {\n  transform: scale(0.98);\n}\n.footer {\n  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)) !important;\n  padding: 22px 16px 12px 16px\
+            \ !important;\n  font-size: 16px !important;\n  font-weight: 600 !important;\n  letter-spacing: .3px;\n  color: #fff !important;\n}\n"
+    - type: vertical-stack
+      cards:
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_1
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_1
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: &id001
+              .: "ha-card {\n  position: fixed !important;\n  top: 0; left: 0;\n  width: 100vw; height: 100vh;\n  z-index: 99999;\n  margin: 0; border-radius: 0; border: none;\n  background: #000;\n  overflow:\
+                \ hidden;\n}\nhui-image { display: block; width: 100vw; height: 100vh; }\n"
+              hui-image $: '#wrapper, div { width: 100vw !important; height: 100vh !important; padding-bottom: 0 !important; }
+
+                ha-camera-stream, img { width: 100vw !important; height: 100vh !important; max-height: 100vh !important; object-fit: fill !important; }
+
+                '
+              hui-image $ ha-camera-stream $: 'ha-web-rtc-player, ha-hls-player, img, video { width: 100vw !important; height: 100vh !important; max-height: 100vh !important; object-fit: fill !important;
+                }
+
+                '
+              hui-image $ ha-camera-stream $ ha-web-rtc-player $: 'video { width: 100vw !important; height: 100vh !important; max-height: 100vh !important; object-fit: fill !important; }
+
+                '
+              hui-image $ ha-camera-stream $ ha-hls-player $: 'video { width: 100vw !important; height: 100vh !important; max-height: 100vh !important; object-fit: fill !important; }
+
+                '
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_2
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_2
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_3
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_3
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_4
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_4
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_5
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_5
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_6
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_6
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_7
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_7
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_8
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_8
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+      - type: conditional
+        conditions:
+        - entity: input_select.camera_fullscreen_tableta
+          state: camera_9
+        card:
+          type: picture-entity
+          entity: camera.YOUR_CAMERA_9
+          camera_view: live
+          fit_mode: fill
+          show_name: false
+          show_state: false
+          tap_action:
+            action: perform-action
+            perform_action: input_select.select_option
+            target:
+              entity_id: input_select.camera_fullscreen_tableta
+            data:
+              option: none
+          card_mod:
+            style: *id001
+- title: Rețea
+  path: retea
+  icon: mdi:lan
+  type: panel
+  cards:
+  - type: custom:tb-net-card
+- title: Muzică
+  path: muzica
+  icon: mdi:music-circle
+  type: panel
+  cards:
+  - type: custom:tb-music-card
+- title: F1
+  path: f1
+  icon: mdi:flag-checkered
+  type: sections
+  max_columns: 4
+  dense_section_placement: true
+  sections:
+  - type: grid
+    column_span: 1
+    cards:
+    - type: vertical-stack
+      cards:
+      - type: custom:f1-next-race-card
+        card_mod:
+          style: ':host { display: block; max-height: calc(50vh - 80px); overflow-y: auto; }'
+      - type: custom:f1-weather-card
+        card_mod:
+          style: ':host { display: block; max-height: calc(50vh - 80px); overflow-y: auto; }'
+  - type: grid
+    column_span: 1
+    cards:
+    - type: custom:f1-last-race-results-card
+      card_mod:
+        style: ':host { display: block; height: calc(100vh - 150px); max-height: calc(100vh - 150px); overflow-y: auto; overflow-x: hidden; }
+
+          ha-card { max-height: none !important; }'
+  - type: grid
+    column_span: 1
+    cards:
+    - type: custom:f1-championship-prediction-drivers-card
+      card_mod:
+        style: ':host { display: block; height: calc(100vh - 150px); max-height: calc(100vh - 150px); overflow-y: auto; overflow-x: hidden; }
+
+          ha-card { max-height: none !important; }'
+  - type: grid
+    column_span: 1
+    cards:
+    - type: custom:f1-championship-prediction-teams-card
+      card_mod:
+        style: ':host { display: block; height: calc(100vh - 150px); max-height: calc(100vh - 150px); overflow-y: auto; overflow-x: hidden; }
+
+          ha-card { max-height: none !important; }'
